@@ -58,7 +58,8 @@ router.post("/register", async (req, res) => {
                         phone: req.body.phone,
                         otp: verificationOTP,
                         expiry: expiryOTP,
-                        isVerified: false
+                        isVerified: false,
+                        isAdmin: false
                     }
 
                     const insertUser = await userColl.insertOne(user)

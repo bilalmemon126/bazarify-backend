@@ -1,5 +1,6 @@
 import express from 'express'
 import { client } from './dbConfig.js'
+import jwt from 'jsonwebtoken'
 import registrationRoute from './routes/authRoutes/resgistration.js'
 import otpverificationRoute from './routes/authRoutes/otpVerification.js'
 import loginRoute from './routes/authRoutes/login.js'
@@ -30,6 +31,26 @@ app.use(otpverificationRoute)
 app.use(protectedRoute)
 app.use(logoutRoute)
 
+app.use( async(req, res, next) => {
+    try{
+        const token =await req.cookies.token
+        if(!token){
+            return res.status(401).send({
+                status: 0,
+                message: "unauthorized"
+            })
+        }
+        const decoded = jwt.verify(req.cookies.token, process.env.MY_SECRET)
+        return next()
+    }
+    catch(error){
+        return res.status(400).send({
+            status: 0,
+            error: error,
+            message: "Internal Server Error"
+        })
+    }
+})
 
 app.use(productRoutes)
 
