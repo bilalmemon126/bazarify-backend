@@ -40,7 +40,7 @@ app.use( async(req, res, next) => {
         if(!token){
             return res.status(401).send({
                 status: 0,
-                message: "unauthorizedzz"
+                message: "unauthorized"
             })
         }
         const decoded = jwt.verify(req.cookies.token, process.env.MY_SECRET)

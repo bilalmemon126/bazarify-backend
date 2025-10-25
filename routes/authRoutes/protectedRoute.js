@@ -6,17 +6,16 @@ const router = express.Router()
 
 router.get("/protected", async (req, res) => {
     try{
-        const token =await req.cookies.token
+        const token =await req.cookies?.token
         console.log(token)
 
         if(!token){
             return res.status(401).send({
                 status: 0,
-                tokenss: token,
-                message: "unauthorize",
+                message: "unauthorized"
             })
         }
-        const decoded = jwt.verify(req.cookies.token, process.env.MY_SECRET)
+        const decoded = jwt.verify(token, process.env.MY_SECRET)
         return res.status(200).send({
             status: 1,
             message: "verified user"
