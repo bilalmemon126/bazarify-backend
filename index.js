@@ -16,10 +16,34 @@ console.log("connected successfully with mongodb")
 
 const app = express()
 
-app.use(cors({
-    origin: 'https://bazarify-website.vercel.app',
-    credentials: true
-}))
+const allowedOrigins = [
+    "https://bazarify-website.vercel.app", // your live frontend
+    "http://localhost:5173" // for local testing
+  ];
+  
+
+// app.use(cors({
+//     origin: 'https://bazarify-website.vercel.app',
+//     credentials: true
+// }))
+
+app.use(
+    cors({
+      origin: function (origin, callback) {
+        // allow requests with no origin (like Postman)
+        if (!origin) return callback(null, true);
+  
+        if (allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error("Not allowed by CORS"));
+        }
+      },
+      credentials: true, // important for cookies
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+    })
+  );
 
 const port = 3001
 
