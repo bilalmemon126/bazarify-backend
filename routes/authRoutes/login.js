@@ -57,6 +57,7 @@ router.post("/login", async (req, res) => {
                         }
                         else {
                             const oldToken = await req.cookies.token
+                            console.log(token)
                             if (oldToken) {
                                 const decoded = jwt.verify(oldToken, process.env.MY_SECRET)
                                 if (decoded) {
