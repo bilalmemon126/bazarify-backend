@@ -7,6 +7,8 @@ const router = express.Router()
 router.get("/protected", async (req, res) => {
     try{
         const token =await req.cookies.token
+        console.log(token)
+
         if(!token){
             return res.status(401).send({
                 status: 0,
