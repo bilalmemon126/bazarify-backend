@@ -12,7 +12,7 @@ router.get("/protected", async (req, res) => {
         if(!token){
             return res.status(401).send({
                 status: 0,
-                message: "unauthorized"
+                message: "unauthorizedd"
             })
         }
         const decoded = jwt.verify(req.cookies.token, process.env.MY_SECRET)
