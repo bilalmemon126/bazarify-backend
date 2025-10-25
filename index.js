@@ -17,7 +17,7 @@ console.log("connected successfully with mongodb")
 const app = express()
 
 app.use(cors({
-    origin: ['https://bazarify-website-xfs4.vercel.app'],
+    origin: ['https://bazarify-website-r78h.vercel.app'],
     credentials: true
 }))
 
