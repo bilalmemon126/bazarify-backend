@@ -3,10 +3,10 @@ import express from 'express'
 // import { ObjectId } from 'mongodb'
 // import { client } from '../dbConfig.js'
 // import cloudinary from '../config/cloudinary.js'
-import addProductRoute from './productRoutes/addProduct.js'
-import getProductRoute from './productRoutes/getProduct.js'
-import deleteProductRoute from './productRoutes/deleteProduct.js'
-import editProductRoute from './productRoutes/editProduct.js'
+import addProductRoute from './addProduct.js'
+import getProductRoute from './getProduct.js'
+import deleteProductRoute from './deleteProduct.js'
+import editProductRoute from './editProduct.js'
 const router = express.Router()
 
 // const db = client.db("bazarify")

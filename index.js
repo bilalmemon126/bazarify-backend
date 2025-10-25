@@ -5,8 +5,9 @@ import registrationRoute from './routes/authRoutes/resgistration.js'
 import otpverificationRoute from './routes/authRoutes/otpVerification.js'
 import loginRoute from './routes/authRoutes/login.js'
 import protectedRoute from './routes/authRoutes/protectedRoute.js'
-import productRoutes from './routes/productRoutes.js'
 import logoutRoute from './routes/authRoutes/logout.js'
+import adminRoutes from './routes/adminRoutes/adminRoutes.js'
+import productRoutes from './routes/productRoutes/productRoutes.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
@@ -30,6 +31,8 @@ app.use(registrationRoute)
 app.use(otpverificationRoute)
 app.use(protectedRoute)
 app.use(logoutRoute)
+
+app.use(adminRoutes)
 
 app.use( async(req, res, next) => {
     try{
