@@ -64,8 +64,7 @@ router.post("/login", async (req, res) => {
                                     res.clearCookie('token', {
                                         httpOnly: true,
                                         secure: true,
-                                        sameSite: "none", // required for cross-domain
-                                        path: "/",
+                                        sameSite: "none",
                                     })
                                 }
                             }
@@ -79,8 +78,7 @@ router.post("/login", async (req, res) => {
                             res.cookie("token", token, {
                                 httpOnly: true,
                                 secure: true,
-                                sameSite: "none", // required for cross-domain
-                                path: "/",
+                                sameSite: "none",
                             })
 
                             const sendUserData = await userColl.findOne({ _id: checkUser._id }, { projection: { _id: 1, firstName: 1 } })
