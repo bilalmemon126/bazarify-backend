@@ -12,12 +12,13 @@ router.post("/logout", async (req, res) => {
                 message: 'Unauthorized'
             })
         }
-        else{
+        else {
             const decoded = jwt.verify(token, process.env.MY_SECRET)
             if (decoded) {
                 res.clearCookie('token', {
                     httpOnly: true,
-                    secure: true
+                    secure: true,
+                    sameSite: "none",
                 })
                 return res.status(200).send({
                     status: 1,

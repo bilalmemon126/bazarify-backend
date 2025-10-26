@@ -11,13 +11,14 @@ const userColl = db.collection("user")
 
 router.post("/register", async (req, res) => {
     try {
-        const token =await req.cookies.token
-        if(token){
+        const token = await req.cookies.token
+        if (token) {
             const decoded = jwt.verify(token, process.env.MY_SECRET)
-            if(decoded){
-                res.clearCookie('token',{
+            if (decoded) {
+                res.clearCookie('token', {
                     httpOnly: true,
-                    secure: true
+                    secure: true,
+                    sameSite: "none",
                 })
             }
         }
@@ -38,7 +39,7 @@ router.post("/register", async (req, res) => {
                     message: "invalid email format"
                 })
             }
-            else{
+            else {
                 const checkUser = await userColl.findOne({ email: email })
                 if (checkUser) {
                     return res.status(409).send({
@@ -65,7 +66,7 @@ router.post("/register", async (req, res) => {
 
                     const insertUser = await userColl.insertOne(user)
                     if (insertUser.insertedId) {
-                        const findUser = await userColl.findOne({ _id: new ObjectId(insertUser.insertedId) }, {projection: {_id: 1, firstName: 1}})
+                        const findUser = await userColl.findOne({ _id: new ObjectId(insertUser.insertedId) }, { projection: { _id: 1, firstName: 1 } })
                         sendOtp(`${email}`, `${verificationOTP}`);
                         return res.status(200).send({
                             status: 1,

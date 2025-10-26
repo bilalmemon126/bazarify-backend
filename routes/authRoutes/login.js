@@ -12,7 +12,8 @@ router.post("/login", async (req, res) => {
     try {
         res.clearCookie("token", {
             httpOnly: true,
-            secure: true
+            secure: true,
+            sameSite: "none",
         })
 
         if (!req.body.email || !req.body.password) {

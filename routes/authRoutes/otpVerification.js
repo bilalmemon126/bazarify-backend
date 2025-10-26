@@ -9,7 +9,7 @@ const userColl = db.collection("user")
 
 router.post("/user-otpverification/:id", async (req, res) => {
     let userId = new ObjectId(req.params.id)
-    let findUser = await userColl.findOne({_id: userId})
+    let findUser = await userColl.findOne({ _id: userId })
     if (!findUser) {
         return res.status(400).send({
             status: 0,
@@ -26,8 +26,8 @@ router.post("/user-otpverification/:id", async (req, res) => {
         else {
             if (req.body.otp == findUser.otp) {
                 if (Date.now() > findUser.expiry) {
-                    let deletedUser = await userColl.deleteOne({_id: userId})
-                    if(deletedUser){
+                    let deletedUser = await userColl.deleteOne({ _id: userId })
+                    if (deletedUser) {
                         return res.status(401).send({
                             status: 0,
                             message: "your otp has expired"
@@ -55,9 +55,10 @@ router.post("/user-otpverification/:id", async (req, res) => {
 
                         res.cookie("token", token, {
                             httpOnly: true,
-                            secure: true
+                            secure: true,
+                            sameSite: "none",
                         })
-                        const sendUserData =await userColl.findOne({_id: userId}, {projection: {_id: 1, firstName: 1}})
+                        const sendUserData = await userColl.findOne({ _id: userId }, { projection: { _id: 1, firstName: 1 } })
                         return res.status(200).send({
                             status: 1,
                             message: "now you can login",
